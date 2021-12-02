@@ -9,9 +9,66 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1>Income and Expense Calculator</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <!-- Dashboard -->
+          <div class="col">
+            <h2>Dashboard</h2>
+            <p>Total Income: <span>$0.00</span></p>
+            <p>Total Expenses: <span>$0.00</span></p>
+            <p>Leftover: <span>$0.00</span></p>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Income -->
+          <div class="col m6">
+            <div class="card">
+              <div class="card-content">
+                <h2>
+                  Income
+                  <a class="btn-floating waves-effect waves-light green"
+                    ><i id="addIncomeBtn" class="material-icons small">add</i>
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expense -->
+          <div class="col m6">
+            <div class="card">
+              <div class="card-content">
+                <h2>
+                  Expense
+                  <a class="btn-floating waves-effect waves-light green"
+                    ><i id="addExpenseBtn" class="material-icons small">add</i>
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/script.js"></script>
