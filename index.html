@@ -19,7 +19,7 @@
     <header>
       <div class="container">
         <div class="row">
-          <div class="col">
+          <div class="col center">
             <h1>Income and Expense Calculator</h1>
           </div>
         </div>
@@ -30,17 +30,21 @@
       <div class="container">
         <div class="row">
           <!-- Dashboard -->
-          <div class="col">
-            <h2>Dashboard</h2>
-            <p>Total Income: <span>$0.00</span></p>
-            <p>Total Expenses: <span>$0.00</span></p>
-            <p>Leftover: <span>$0.00</span></p>
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h2>Dashboard</h2>
+                <p>Total Income: <span id="totalIncome">$0.00</span></p>
+                <p>Total Expenses: <span id="totalExpense">$0.00</span></p>
+                <p>Leftover: <span id="leftover">$0.00</span></p>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="row">
           <!-- Income -->
-          <div class="col m6">
+          <div class="col m12 l6">
             <div class="card">
               <div class="card-content">
                 <h2>
@@ -54,7 +58,7 @@
           </div>
 
           <!-- Expense -->
-          <div class="col m6">
+          <div class="col m12 l6">
             <div class="card">
               <div class="card-content">
                 <h2>
