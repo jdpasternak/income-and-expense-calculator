@@ -14,14 +14,38 @@ $(document).ready(() => {
   $(".modal").modal();
 });
 
-$(document).on("click", "#addIncomeBtn", (evt) => {
-  console.log(evt.target);
-  $("#entryType").text("Income");
+$(document).on("click", "i", (evt) => {
+  console.log(evt.target.dataset);
+  if (evt.target.dataset.income !== undefined) {
+    $("#entryType").text("Income");
+    $(".modal form").attr("data-type", "income");
+  } else if (evt.target.dataset.expense !== undefined) {
+    $("#entryType").text("Expense");
+    $(".modal form").attr("data-type", "expense");
+  }
   $(".modal").modal("open");
+
+  $("#addEntryBtn").on("click", addEntryHandler);
 });
 
-$(document).on("click", "#addExpenseBtn", (evt) => {
-  console.log(evt.target);
-  $("#entryType").text("Expense");
-  $(".modal").modal("open");
-});
+var addEntry = (description, amount, type) => {
+  $("ul.collection[data-expense]").append(
+    $(`<li class="collection">`).text("test!")
+  );
+};
+
+var addEntryHandler = (evt) => {
+  if ($(".modal form")[0].dataset.type === "income") {
+    addEntry(null, null, "income");
+  } else if (evt.target.dataset.expense !== undefined) {
+  }
+};
+
+// $(document).on("click", "#addExpenseBtn", (evt) => {
+//   console.log(evt.target);
+//   $("#entryType").text("Expense");
+//   $(".modal").modal("open");
+
+//   var description = $("#description").val();
+//   var amount = $("#amount").val();
+// });
