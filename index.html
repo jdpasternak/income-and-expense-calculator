@@ -108,7 +108,24 @@
       <div class="modal-content">
         <h4>Add <span id="entryType"></span></h4>
         <form>
-          <label><input name="income" type="radio" /><span>Income</span></label>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="description" type="text" class="validate" required />
+              <label for="description">Description</label>
+              <span
+                class="helper-text"
+                data-error="This field is required"
+              ></span>
+            </div>
+            <div class="input-field col s12">
+              <input id="amount" type="number" class="validate" required />
+              <label for="amount">Amount</label>
+              <span
+                class="helper-text"
+                data-error="This field is required"
+              ></span>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
