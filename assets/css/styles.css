@@ -5,3 +5,11 @@
 h2 {
   margin-top: 0;
 }
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
