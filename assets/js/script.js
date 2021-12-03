@@ -9,3 +9,19 @@
         </span>
     </a>
 */
+
+$(document).ready(() => {
+  $(".modal").modal();
+});
+
+$(document).on("click", "#addIncomeBtn", (evt) => {
+  console.log(evt.target);
+  $("#entryType").text("Income");
+  $(".modal").modal("open");
+});
+
+$(document).on("click", "#addExpenseBtn", (evt) => {
+  console.log(evt.target);
+  $("#entryType").text("Expense");
+  $(".modal").modal("open");
+});

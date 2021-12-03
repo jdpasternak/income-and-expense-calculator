@@ -53,7 +53,10 @@
                     <h2>
                       Income
                       <a class="btn-floating waves-effect waves-light green"
-                        ><i id="addIncomeBtn" class="material-icons small"
+                        ><i
+                          data-income
+                          id="addIncomeBtn"
+                          class="material-icons small"
                           >add</i
                         >
                       </a>
@@ -79,7 +82,10 @@
                     <h2>
                       Expense
                       <a class="btn-floating waves-effect waves-light green"
-                        ><i id="addExpenseBtn" class="material-icons small"
+                        ><i
+                          data-expense
+                          id="addExpenseBtn"
+                          class="material-icons small"
                           >add</i
                         >
                       </a>
@@ -100,7 +106,7 @@
     </main>
     <div id="addEntryModal" class="modal">
       <div class="modal-content">
-        <h4>Add <span></span></h4>
+        <h4>Add <span id="entryType"></span></h4>
         <form>
           <label><input name="income" type="radio" /><span>Income</span></label>
         </form>
@@ -109,8 +115,9 @@
         <a class="modal-close waves-effect waves-green btn-flat">Add</a>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
