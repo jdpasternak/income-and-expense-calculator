@@ -36,7 +36,7 @@ $(document).ready(() => {
   $("#deleteEntryBtn").on("click", deleteEntryHandler);
 });
 
-$(document).on("click", "i", (evt) => {
+var openAddEntryModalHandler = (evt) => {
   console.log(evt.target.dataset.category);
   if (evt.target.dataset.category === "income") {
     $("#entryType").text("Income");
@@ -46,6 +46,10 @@ $(document).on("click", "i", (evt) => {
     $("#addEntryModal form").attr("data-category", "expense");
   }
   $("#addEntryModal").modal("open");
+};
+
+[$("#addIncomeBtn"), $("#addExpenseBtn")].forEach((b) => {
+  b.on("click", openAddEntryModalHandler);
 });
 
 // Add Entry Function
