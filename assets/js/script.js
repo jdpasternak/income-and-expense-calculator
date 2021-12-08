@@ -151,10 +151,14 @@ var deleteEntryHandler = (evt) => {
   var id = $("#editDeleteEntryModal form")[0].dataset.entryid;
   deleteEntry(id);
   $("#editDeleteEntryModal").modal("close");
+  M.toast({
+    html: "Entry deleted.",
+    classes: "orange",
+  });
 };
 
 var deleteEntry = (id) => {
-  return false;
+  $(`a[data-entryid="${id}"]`).remove();
 };
 
 // Utility Functions
