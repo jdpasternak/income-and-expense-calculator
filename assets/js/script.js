@@ -11,7 +11,14 @@
 */
 
 $(document).ready(() => {
-  $(".modal").modal();
+  $(".modal").modal({
+    onCloseEnd: () => {
+      $("#description").val("");
+      $("#description").removeClass("invalid");
+      $("#amount").val("");
+      $("#amount").removeClass("invalid");
+    },
+  });
 });
 
 $(document).on("click", "i", (evt) => {
