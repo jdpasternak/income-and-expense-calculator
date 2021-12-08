@@ -160,7 +160,6 @@ var deleteEntryHandler = (evt) => {
     deleteEntry(id);
   }, myToast.options.displayLength);
   $(".toast-action").on("click", () => {
-    window.clearInterval(myToast.counterInterval);
     window.clearTimeout(deleteTimeout);
     myToast.dismiss();
     $(`a[data-entryid="${id}"`).show();
