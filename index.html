@@ -1,12 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Income and Expense Calculator</title>
-</head>
-<body>
-    
-</body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col center">
+            <h1>Income and Expense Calculator</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <!-- Dashboard -->
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h2>Dashboard</h2>
+                <p>Total Income: <span id="totalIncome">$0.00</span></p>
+                <p>Total Expenses: <span id="totalExpense">$0.00</span></p>
+                <p>Leftover: <span id="leftover">$0.00</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Income -->
+          <div class="col s12 l6">
+            <div class="card">
+              <div class="card-content">
+                <!-- Header and Add Button -->
+                <div class="row">
+                  <div class="col s12">
+                    <h2>
+                      Income
+                      <a class="btn-floating waves-effect waves-light green"
+                        ><i
+                          data-category="income"
+                          id="addIncomeBtn"
+                          class="material-icons small"
+                          >add</i
+                        >
+                      </a>
+                    </h2>
+                  </div>
+                </div>
+                <!-- List of Entries -->
+                <div class="row">
+                  <div class="col s12">
+                    <ul data-category="income" class="collection"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expense -->
+          <div class="col s12 l6">
+            <div class="card">
+              <div class="card-content">
+                <div class="row">
+                  <div class="col s12">
+                    <h2>
+                      Expense
+                      <a class="btn-floating waves-effect waves-light green"
+                        ><i
+                          data-category="expense"
+                          id="addExpenseBtn"
+                          class="material-icons small"
+                          >add</i
+                        >
+                      </a>
+                    </h2>
+                  </div>
+                </div>
+                <!-- List of Entries -->
+                <div class="row">
+                  <div class="col s12">
+                    <ul data-category="expense" class="collection"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Add Entry Modal -->
+    <div id="addEntryModal" class="modal">
+      <div class="modal-content">
+        <h4>Add <span id="entryType"></span></h4>
+        <form>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="description" type="text" class="validate" required />
+              <label for="description">Description</label>
+              <span
+                class="helper-text"
+                data-error="This field is required"
+              ></span>
+            </div>
+            <div class="input-field col s12">
+              <input id="amount" type="number" class="validate" required />
+              <label for="amount">Amount</label>
+              <span
+                class="helper-text"
+                data-error="This field is required"
+              ></span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a id="addEntryBtn" class="waves-effect waves-green btn-flat">Add</a>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
 </html>
