@@ -33,6 +33,7 @@ $(document).ready(() => {
 
   $("#addEntryBtn").on("click", addEntryHandler);
   $("#saveEntryBtn").on("click", saveModifiedEntryHandler);
+  $("#deleteEntryBtn").on("click", deleteEntryHandler);
 });
 
 $(document).on("click", "i", (evt) => {
@@ -146,9 +147,15 @@ var saveModifiedEntry = (description, amount, category, id) => {
   amountEl.text(currencyFormatter.format(amount));
 };
 
-var deleteEntryHandler = (evt) => {};
+var deleteEntryHandler = (evt) => {
+  var id = $("#editDeleteEntryModal form")[0].dataset.entryid;
+  deleteEntry(id);
+  $("#editDeleteEntryModal").modal("close");
+};
 
-var deleteEntry = (id) => {};
+var deleteEntry = (id) => {
+  return false;
+};
 
 // Utility Functions
 var convertCurrencyFormatToFloat = (currency) => {
