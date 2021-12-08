@@ -3,7 +3,7 @@ h2 {
 }
 
 .d-flex {
-  display: flex !important;
+  display: flex;
 }
 
 .justify-content-between {

@@ -149,11 +149,21 @@ var saveModifiedEntry = (description, amount, category, id) => {
 
 var deleteEntryHandler = (evt) => {
   var id = $("#editDeleteEntryModal form")[0].dataset.entryid;
-  deleteEntry(id);
+  $(`a[data-entryid="${id}"`).hide();
   $("#editDeleteEntryModal").modal("close");
-  M.toast({
-    html: "Entry deleted.",
+  var myToast = M.toast({
+    html: `<span>Entry deleted.</span><button class="btn-flat toast-action">UNDO</button>"`,
     classes: "orange",
+    // completeCallback: () => deleteEntry(id),
+  });
+  var deleteTimeout = setTimeout(() => {
+    deleteEntry(id);
+  }, myToast.options.displayLength);
+  $(".toast-action").on("click", () => {
+    window.clearInterval(myToast.counterInterval);
+    window.clearTimeout(deleteTimeout);
+    myToast.dismiss();
+    $(`a[data-entryid="${id}"`).show();
   });
 };
 
