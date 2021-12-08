@@ -10,6 +10,11 @@
     </a>
 */
 
+var currencyFormatter = Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 $(document).ready(() => {
   $(".modal").modal({
     onCloseEnd: () => {
@@ -47,7 +52,7 @@ var addEntry = (description, amount, category) => {
       ${description}
   </span>
   <span class="col s12 m4 right-align" data-amount data-entryid="1">
-      $${amount}
+      ${currencyFormatter.format(amount)}
   </span>`);
   $(`ul.collection[data-category="${category}"]`).append(newEntry);
   $(".modal").modal("close");
