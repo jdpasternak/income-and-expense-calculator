@@ -18,14 +18,14 @@ var currencyFormatter = Intl.NumberFormat("en-US", {
 $(document).ready(() => {
   $(".modal").modal({
     onCloseEnd: () => {
-      $("#description").val("");
-      $("#description").removeClass("invalid");
-      $("#description").removeClass("valid");
-      $(`label[for="description"]`).removeClass("active");
-      $("#amount").val("");
-      $("#amount").removeClass("invalid");
-      $("#amount").removeClass("valid");
-      $(`label[for="amount"]`).removeClass("active");
+      $(".modal input").each((_, i) => {
+        $(i).val("");
+        $(i).removeClass("invalid");
+        $(i).removeClass("valid");
+      });
+      $(".modal label").each((_, l) => {
+        $(l).removeClass("active");
+      });
     },
   });
 
