@@ -44,7 +44,11 @@ $(document).on("click", "i", (evt) => {
   $(".modal").modal("open");
 });
 
+// Add Entry Function
 var addEntry = (description, amount, category) => {
+  if (category === "expense") {
+    amount = -Math.abs(amount);
+  }
   var newEntry = $(
     `<a class="collection-item row d-flex justify-content-between">`
   );
@@ -62,14 +66,40 @@ var addEntryHandler = (evt) => {
   // gather inputs
   var description = $("#description").val();
   var amount = $("#amount").val();
+  var category = $(".modal form")[0].dataset.category;
 
-  // validate inputs
-  if (description.length < 3 || amount <= 0) {
-    console.log("invalid input");
+  // Income must be a positive non-zero number
+
+  // Expense can accept positive or negative (handling abs val on the backend)
+
+  // Check if description is greater than 3 or more characters
+  if (description.length < 3) {
+    M.toast({
+      html: "Enter at least 3 letters for description.",
+      classes: "red",
+    });
     return false;
-  } else {
-    addEntry(description, amount, $(".modal form")[0].dataset.category);
   }
+
+  // Check for zero amount input
+  if (amount === 0 || amount === "") {
+    M.toast({
+      html: "Amount must not be 0.",
+      classes: "red",
+    });
+    return false;
+  }
+
+  // Check if income amount is negative
+  if (category === "income" && amount < 0) {
+    M.toast({
+      html: "Income amount must be a postive number.",
+      classes: "red",
+    });
+    return false;
+  }
+
+  addEntry(description, amount, category);
 };
 
 // $(document).on("click", "#addExpenseBtn", (evt) => {
