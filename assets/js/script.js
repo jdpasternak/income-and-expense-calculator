@@ -36,12 +36,12 @@ $(document).on("click", "i", (evt) => {
   console.log(evt.target.dataset.category);
   if (evt.target.dataset.category === "income") {
     $("#entryType").text("Income");
-    $(".modal form").attr("data-category", "income");
+    $("#addEntryModal form").attr("data-category", "income");
   } else if (evt.target.dataset.category === "expense") {
     $("#entryType").text("Expense");
-    $(".modal form").attr("data-category", "expense");
+    $("#addEntryModal form").attr("data-category", "expense");
   }
-  $(".modal").modal("open");
+  $("#addEntryModal").modal("open");
 });
 
 // Add Entry Function
@@ -60,8 +60,10 @@ var addEntry = (description, amount, category) => {
   </span>`);
   $(`ul.collection[data-category="${category}"]`).append(newEntry);
   $(".modal").modal("close");
+  newEntry.on("click", modifyEntryHandler);
 };
 
+// Add Entry Button Handler
 var addEntryHandler = (evt) => {
   // gather inputs
   var description = $("#description").val();
@@ -100,6 +102,10 @@ var addEntryHandler = (evt) => {
   }
 
   addEntry(description, amount, category);
+};
+
+var modifyEntryHandler = (evt) => {
+  $("#editDeleteEntryModal").modal("open");
 };
 
 // $(document).on("click", "#addExpenseBtn", (evt) => {
