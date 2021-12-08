@@ -15,8 +15,12 @@ $(document).ready(() => {
     onCloseEnd: () => {
       $("#description").val("");
       $("#description").removeClass("invalid");
+      $("#description").removeClass("valid");
+      $(`label[for="description"]`).removeClass("active");
       $("#amount").val("");
       $("#amount").removeClass("invalid");
+      $("#amount").removeClass("valid");
+      $(`label[for="amount"]`).removeClass("active");
     },
   });
 
