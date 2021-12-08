@@ -59,7 +59,7 @@ var addEntry = (description, amount, category) => {
       ${currencyFormatter.format(amount)}
   </span>`);
   $(`ul.collection[data-category="${category}"]`).append(newEntry);
-  $(".modal").modal("close");
+
   newEntry.on("click", modifyEntryHandler);
 };
 
@@ -102,12 +102,34 @@ var addEntryHandler = (evt) => {
   }
 
   addEntry(description, amount, category);
+  $(".modal").modal("close");
 };
 
 var modifyEntryHandler = (evt) => {
+  var description = $($(evt.target).closest("a").children()[0]).text().trim();
+  var amount = $($(evt.target).closest("a").children()[1]).text().trim();
+
+  console.log(description, amount);
+
   $("#editDeleteEntryModal").modal("open");
+  $("#editDescription").val(description).addClass("valid");
+  $("#editAmount").val(convertCurrencyFormatToFloat(amount)).addClass("valid");
+  $(`label[for="editAmount"]`).addClass("active");
+  $(`label[for="editDescription"]`).addClass("active");
 };
 
+// Utility Functions
+var convertCurrencyFormatToFloat = (currency) => {
+  currency = currency.replace("$", "");
+  currency = currency.replace(",", "");
+  currency = parseFloat(currency);
+  return currency;
+};
+
+/* 
+  Testing
+*/
+addEntry("Some desc", "1234", "income");
 // $(document).on("click", "#addExpenseBtn", (evt) => {
 //   console.log(evt.target);
 //   $("#entryType").text("Expense");
