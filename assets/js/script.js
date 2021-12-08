@@ -15,6 +15,8 @@ var currencyFormatter = Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
+var entryCounter = 0;
+
 $(document).ready(() => {
   $(".modal").modal({
     onCloseEnd: () => {
@@ -30,6 +32,7 @@ $(document).ready(() => {
   });
 
   $("#addEntryBtn").on("click", addEntryHandler);
+  $("#saveEntryBtn").on("click", saveModifiedEntryHandler);
 });
 
 $(document).on("click", "i", (evt) => {
@@ -50,7 +53,7 @@ var addEntry = (description, amount, category) => {
     amount = -Math.abs(amount);
   }
   var newEntry = $(
-    `<a class="collection-item row d-flex justify-content-between">`
+    `<a class="collection-item row d-flex justify-content-between" data-entryid="${entryCounter}">`
   );
   newEntry.html(`<span class="col s12 m4 left-align" data-description data-entryid="1">
       ${description}
@@ -61,6 +64,7 @@ var addEntry = (description, amount, category) => {
   $(`ul.collection[data-category="${category}"]`).append(newEntry);
 
   newEntry.on("click", modifyEntryHandler);
+  entryCounter++;
 };
 
 // Add Entry Button Handler
@@ -108,15 +112,43 @@ var addEntryHandler = (evt) => {
 var modifyEntryHandler = (evt) => {
   var description = $($(evt.target).closest("a").children()[0]).text().trim();
   var amount = $($(evt.target).closest("a").children()[1]).text().trim();
-
-  console.log(description, amount);
+  var category = $(evt.target).closest("ul")[0].dataset.category;
+  var id = $(evt.target).closest("a")[0].dataset.entryid;
 
   $("#editDeleteEntryModal").modal("open");
   $("#editDescription").val(description).addClass("valid");
   $("#editAmount").val(convertCurrencyFormatToFloat(amount)).addClass("valid");
   $(`label[for="editAmount"]`).addClass("active");
   $(`label[for="editDescription"]`).addClass("active");
+  $(`#editDeleteEntryModal form`).attr("data-category", category);
+  $(`#editDeleteEntryModal form`).attr("data-entryid", id);
 };
+
+var saveModifiedEntryHandler = (evt) => {
+  console.log($(`#editDeleteEntryModal form`)[0].dataset.category);
+  var category = $(`#editDeleteEntryModal form`)[0].dataset.category;
+  var description = $("#editDescription").val();
+  var amount = $("#editAmount").val();
+  var id = $(`#editDeleteEntryModal form`)[0].dataset.entryid;
+  console.log(category, description, amount, id);
+
+  if (validateInputs(description, amount, category)) {
+    saveModifiedEntry(description, amount, category, id);
+    $("#editDeleteEntryModal").modal("close");
+  }
+};
+
+var saveModifiedEntry = (description, amount, category, id) => {
+  var descriptionEl = $(`a[data-entryid="${id}"] span[data-description]`);
+  var amountEl = $(`a[data-entryid="${id}"] span[data-amount]`);
+
+  descriptionEl.text(description);
+  amountEl.text(currencyFormatter.format(amount));
+};
+
+var deleteEntryHandler = (evt) => {};
+
+var deleteEntry = (id) => {};
 
 // Utility Functions
 var convertCurrencyFormatToFloat = (currency) => {
@@ -124,6 +156,37 @@ var convertCurrencyFormatToFloat = (currency) => {
   currency = currency.replace(",", "");
   currency = parseFloat(currency);
   return currency;
+};
+
+var validateInputs = (description, amount, category) => {
+  // Check if description is greater than 3 or more characters
+  if (description.length < 3) {
+    M.toast({
+      html: "Enter at least 3 letters for description.",
+      classes: "red",
+    });
+    return false;
+  }
+
+  // Check for zero amount input
+  if (amount === 0 || amount === "") {
+    M.toast({
+      html: "Amount must not be 0.",
+      classes: "red",
+    });
+    return false;
+  }
+
+  // Check if income amount is negative
+  if (category === "income" && amount < 0) {
+    M.toast({
+      html: "Income amount must be a postive number.",
+      classes: "red",
+    });
+    return false;
+  }
+
+  return true;
 };
 
 /* 
