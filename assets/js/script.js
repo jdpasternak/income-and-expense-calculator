@@ -19,32 +19,47 @@ $(document).ready(() => {
       $("#amount").removeClass("invalid");
     },
   });
-});
-
-$(document).on("click", "i", (evt) => {
-  console.log(evt.target.dataset);
-  if (evt.target.dataset.income !== undefined) {
-    $("#entryType").text("Income");
-    $(".modal form").attr("data-type", "income");
-  } else if (evt.target.dataset.expense !== undefined) {
-    $("#entryType").text("Expense");
-    $(".modal form").attr("data-type", "expense");
-  }
-  $(".modal").modal("open");
 
   $("#addEntryBtn").on("click", addEntryHandler);
 });
 
-var addEntry = (description, amount, type) => {
-  $("ul.collection[data-expense]").append(
-    $(`<li class="collection">`).text("test!")
+$(document).on("click", "i", (evt) => {
+  console.log(evt.target.dataset.category);
+  if (evt.target.dataset.category === "income") {
+    $("#entryType").text("Income");
+    $(".modal form").attr("data-category", "income");
+  } else if (evt.target.dataset.category === "expense") {
+    $("#entryType").text("Expense");
+    $(".modal form").attr("data-category", "expense");
+  }
+  $(".modal").modal("open");
+});
+
+var addEntry = (description, amount, category) => {
+  var newEntry = $(
+    `<a class="collection-item row d-flex justify-content-between">`
   );
+  newEntry.html(`<span class="col s12 m4 left-align" data-description data-entryid="1">
+      ${description}
+  </span>
+  <span class="col s12 m4 right-align" data-amount data-entryid="1">
+      $${amount}
+  </span>`);
+  $(`ul.collection[data-category="${category}"]`).append(newEntry);
+  $(".modal").modal("close");
 };
 
 var addEntryHandler = (evt) => {
-  if ($(".modal form")[0].dataset.type === "income") {
-    addEntry(null, null, "income");
-  } else if (evt.target.dataset.expense !== undefined) {
+  // gather inputs
+  var description = $("#description").val();
+  var amount = $("#amount").val();
+
+  // validate inputs
+  if (description.length < 3 || amount <= 0) {
+    console.log("invalid input");
+    return false;
+  } else {
+    addEntry(description, amount, $(".modal form")[0].dataset.category);
   }
 };
 
