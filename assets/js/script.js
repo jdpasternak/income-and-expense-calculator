@@ -199,6 +199,15 @@ var deleteEntryHandler = (evt) => {
 
 var deleteEntry = (id) => {
   $(`tr[data-entryid="${id}"]`).remove();
+
+  var newEntries = [];
+  for (var i = 0; i < entries.length; i++) {
+    if (!entries[i].id == id) {
+      newEntries.push(entries[i]);
+    }
+  }
+  entries = newEntries;
+  saveEntries();
 };
 
 var updateDashboard = () => {
