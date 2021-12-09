@@ -64,6 +64,7 @@ var addEntry = (description, amount, category) => {
 
   entries.push(entryObj);
   saveEntries();
+
   if (category === "expense") {
     amount = -Math.abs(amount);
   }
@@ -155,6 +156,14 @@ var saveModifiedEntryHandler = (evt) => {
 };
 
 var saveModifiedEntry = (description, amount, category, id) => {
+  for (var i = 0; i < entries.length; i++) {
+    if (entries[i].id == id) {
+      entries[i].description = description;
+      entries[i].amount = amount;
+    }
+  }
+  saveEntries();
+
   if (category === "expense") {
     amount = -Math.abs(amount);
   }
