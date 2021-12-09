@@ -16,6 +16,7 @@ var currencyFormatter = Intl.NumberFormat("en-US", {
 });
 
 var entryCounter = 0;
+var entries = [];
 
 $(document).ready(() => {
   $(".modal").modal({
@@ -65,6 +66,15 @@ var addEntry = (description, amount, category) => {
         ${currencyFormatter.format(amount)}
     </td>`);
   $(`tbody[data-category="${category}"]`).append(newEntry);
+
+  var entryObj = {
+    id: entryCounter,
+    description: description,
+    amount: amount,
+    category: category,
+  };
+
+  entries.push(entryObj);
 
   newEntry.on("click", modifyEntryHandler);
 
