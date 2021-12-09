@@ -57,16 +57,14 @@ var addEntry = (description, amount, category) => {
   if (category === "expense") {
     amount = -Math.abs(amount);
   }
-  var newEntry = $(
-    `<a class="collection-item row d-flex justify-content-between" data-entryid="${entryCounter}">`
-  );
-  newEntry.html(`<span class="col s12 m4 left-align" data-description data-entryid="1">
-      ${description}
-  </span>
-  <span class="col s12 m4 right-align" data-amount data-entryid="1">
-      ${currencyFormatter.format(amount)}
-  </span>`);
-  $(`ul.collection[data-category="${category}"]`).append(newEntry);
+  var newEntry = $(`<tr data-entryid="${entryCounter}">`);
+  newEntry.html(`<td data-description data-entryid="${entryCounter}">
+        ${description}
+    </td>
+    <td data-amount data-entryid="${entryCounter}">
+        ${currencyFormatter.format(amount)}
+    </td>`);
+  $(`tbody[data-category="${category}"]`).append(newEntry);
 
   newEntry.on("click", modifyEntryHandler);
 
@@ -118,10 +116,10 @@ var addEntryHandler = (evt) => {
 };
 
 var modifyEntryHandler = (evt) => {
-  var description = $($(evt.target).closest("a").children()[0]).text().trim();
-  var amount = $($(evt.target).closest("a").children()[1]).text().trim();
-  var category = $(evt.target).closest("ul")[0].dataset.category;
-  var id = $(evt.target).closest("a")[0].dataset.entryid;
+  var description = $($(evt.target).closest("tr").children()[0]).text().trim();
+  var amount = $($(evt.target).closest("tr").children()[1]).text().trim();
+  var category = $(evt.target).closest("tbody")[0].dataset.category;
+  var id = $(evt.target).closest("tr")[0].dataset.entryid;
 
   $("#editDeleteEntryModal").modal("open");
   $("#editDescription").val(description).addClass("valid");
@@ -151,8 +149,8 @@ var saveModifiedEntry = (description, amount, category, id) => {
     amount = -Math.abs(amount);
   }
 
-  var descriptionEl = $(`a[data-entryid="${id}"] span[data-description]`);
-  var amountEl = $(`a[data-entryid="${id}"] span[data-amount]`);
+  var descriptionEl = $(`tr[data-entryid="${id}"] td[data-description]`);
+  var amountEl = $(`tr[data-entryid="${id}"] td[data-amount]`);
 
   descriptionEl.text(description);
   amountEl.text(currencyFormatter.format(amount));
@@ -161,7 +159,7 @@ var saveModifiedEntry = (description, amount, category, id) => {
 
 var deleteEntryHandler = (evt) => {
   var id = $("#editDeleteEntryModal form")[0].dataset.entryid;
-  $(`a[data-entryid="${id}"`).hide();
+  $(`tr[data-entryid="${id}"`).hide();
   $("#editDeleteEntryModal").modal("close");
   var myToast = M.toast({
     html: `<span>Entry deleted.</span><button class="btn-flat toast-action">UNDO</button>`,
@@ -174,21 +172,21 @@ var deleteEntryHandler = (evt) => {
   $(".toast-action").on("click", () => {
     window.clearTimeout(deleteTimeout);
     myToast.dismiss();
-    $(`a[data-entryid="${id}"`).show();
+    $(`tr[data-entryid="${id}"`).show();
     updateDashboard();
   });
   updateDashboard();
 };
 
 var deleteEntry = (id) => {
-  $(`a[data-entryid="${id}"]`).remove();
+  $(`tr[data-entryid="${id}"]`).remove();
 };
 
 var updateDashboard = () => {
   // Calculate income
   var income = 0;
-  $(`ul[data-category="income"] span[data-amount]`).each((i, j) => {
-    if (!($($(j).closest("a")[0]).attr("style") === "display: none;")) {
+  $(`tbody[data-category="income"] td[data-amount]`).each((i, j) => {
+    if (!($($(j).closest("tr")[0]).attr("style") === "display: none;")) {
       income += convertCurrencyFormatToFloat($(j).text());
     }
   });
@@ -199,8 +197,8 @@ var updateDashboard = () => {
 
   // Calculate expense
   var expense = 0;
-  $(`ul[data-category="expense"] span[data-amount]`).each((i, j) => {
-    if (!($($(j).closest("a")[0]).attr("style") === "display: none;")) {
+  $(`tbody[data-category="expense"] td[data-amount]`).each((i, j) => {
+    if (!($($(j).closest("tr")[0]).attr("style") === "display: none;")) {
       expense += convertCurrencyFormatToFloat($(j).text());
     }
   });
