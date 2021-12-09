@@ -233,6 +233,10 @@ var updateDashboard = () => {
   }
 };
 
+var saveEntries = () => {
+  localStorage.set("entries", entries);
+};
+
 // Utility Functions
 var convertCurrencyFormatToFloat = (currency) => {
   currency = currency.replace("$", "");
