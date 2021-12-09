@@ -147,6 +147,10 @@ var saveModifiedEntryHandler = (evt) => {
 };
 
 var saveModifiedEntry = (description, amount, category, id) => {
+  if (category === "expense") {
+    amount = -Math.abs(amount);
+  }
+
   var descriptionEl = $(`a[data-entryid="${id}"] span[data-description]`);
   var amountEl = $(`a[data-entryid="${id}"] span[data-amount]`);
 
