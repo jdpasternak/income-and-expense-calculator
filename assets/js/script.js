@@ -75,6 +75,7 @@ var addEntry = (description, amount, category) => {
   };
 
   entries.push(entryObj);
+  saveEntries();
 
   newEntry.on("click", modifyEntryHandler);
 
