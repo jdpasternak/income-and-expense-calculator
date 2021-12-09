@@ -235,7 +235,7 @@ var updateDashboard = () => {
 };
 
 var saveEntries = () => {
-  localStorage.setItem("entries", entries);
+  localStorage.setItem("entries", JSON.stringify(entries));
 };
 
 // Utility Functions
