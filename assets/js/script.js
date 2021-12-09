@@ -255,6 +255,15 @@ var saveEntries = () => {
   localStorage.setItem("entries", JSON.stringify(entries));
 };
 
+var loadEntries = () => {
+  var savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+  if (savedEntries.length > 0) {
+    savedEntries.forEach((e) => {
+      addEntry(e.description, e.amount, e.category);
+    });
+  }
+};
+
 // Utility Functions
 var convertCurrencyFormatToFloat = (currency) => {
   currency = currency.replace("$", "");
@@ -303,9 +312,10 @@ var validateInputs = (description, amount, category) => {
 // addEntry("Expense 3", "140", "expense");
 // addEntry("Expense 4", "200", "expense");
 
-addEntry("Income 1", "2", "income");
-addEntry("expense 1", "3", "expense");
+// addEntry("Income 1", "2", "income");
+// addEntry("expense 1", "3", "expense");
 
+loadEntries();
 updateDashboard();
 // $(document).on("click", "#addExpenseBtn", (evt) => {
 //   console.log(evt.target);
