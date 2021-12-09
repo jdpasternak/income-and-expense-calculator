@@ -53,13 +53,13 @@
                   <tbody>
                     <tr>
                       <td>
-                        <span id="totalIncome">$0.00</span>
+                        <span id="totalIncome"></span>
                       </td>
                       <td>
-                        <span id="totalExpense">$0.00</span>
+                        <span id="totalExpense"></span>
                       </td>
                       <td>
-                        <span id="leftover">$0.00</span>
+                        <span id="leftover"></span>
                       </td>
                     </tr>
                   </tbody>
@@ -91,11 +91,9 @@
                   </div>
                 </div>
                 <!-- List of Entries -->
-                <div class="row">
-                  <div class="col s12">
-                    <ul data-category="income" class="collection"></ul>
-                  </div>
-                </div>
+                <table class="centered highlight">
+                  <tbody data-category="income"></tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -120,11 +118,9 @@
                   </div>
                 </div>
                 <!-- List of Entries -->
-                <div class="row">
-                  <div class="col s12">
-                    <ul data-category="expense" class="collection"></ul>
-                  </div>
-                </div>
+                <table class="centered highlight">
+                  <tbody data-category="expense"></tbody>
+                </table>
               </div>
             </div>
           </div>
