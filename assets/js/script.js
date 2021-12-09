@@ -196,7 +196,9 @@ var updateDashboard = () => {
   // Calculate expense
   var expense = 0;
   $(`ul[data-category="expense"] span[data-amount]`).each((i, j) => {
-    expense += convertCurrencyFormatToFloat($(j).text());
+    if (!($($(j).closest("a")[0]).attr("style") === "display: none;")) {
+      expense += convertCurrencyFormatToFloat($(j).text());
+    }
   });
 
   // Update expense on DOM
