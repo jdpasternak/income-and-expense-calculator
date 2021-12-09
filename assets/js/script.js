@@ -71,6 +71,8 @@ var addEntry = (description, amount, category) => {
   newEntry.on("click", modifyEntryHandler);
 
   entryCounter++;
+
+  updateDashboard();
 };
 
 // Add Entry Button Handler
@@ -150,6 +152,7 @@ var saveModifiedEntry = (description, amount, category, id) => {
 
   descriptionEl.text(description);
   amountEl.text(currencyFormatter.format(amount));
+  updateDashboard();
 };
 
 var deleteEntryHandler = (evt) => {
@@ -157,7 +160,7 @@ var deleteEntryHandler = (evt) => {
   $(`a[data-entryid="${id}"`).hide();
   $("#editDeleteEntryModal").modal("close");
   var myToast = M.toast({
-    html: `<span>Entry deleted.</span><button class="btn-flat toast-action">UNDO</button>"`,
+    html: `<span>Entry deleted.</span><button class="btn-flat toast-action">UNDO</button>`,
     classes: "orange",
     // completeCallback: () => deleteEntry(id),
   });
@@ -168,7 +171,9 @@ var deleteEntryHandler = (evt) => {
     window.clearTimeout(deleteTimeout);
     myToast.dismiss();
     $(`a[data-entryid="${id}"`).show();
+    updateDashboard();
   });
+  updateDashboard();
 };
 
 var deleteEntry = (id) => {
@@ -179,7 +184,9 @@ var updateDashboard = () => {
   // Calculate income
   var income = 0;
   $(`ul[data-category="income"] span[data-amount]`).each((i, j) => {
-    income += convertCurrencyFormatToFloat($(j).text());
+    if (!($($(j).closest("a")[0]).attr("style") === "display: none;")) {
+      income += convertCurrencyFormatToFloat($(j).text());
+    }
   });
 
   // Update income on DOM
