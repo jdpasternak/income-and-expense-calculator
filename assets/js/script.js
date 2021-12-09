@@ -69,6 +69,7 @@ var addEntry = (description, amount, category) => {
   $(`ul.collection[data-category="${category}"]`).append(newEntry);
 
   newEntry.on("click", modifyEntryHandler);
+
   entryCounter++;
 };
 
@@ -174,6 +175,43 @@ var deleteEntry = (id) => {
   $(`a[data-entryid="${id}"]`).remove();
 };
 
+var updateDashboard = () => {
+  // Calculate income
+  var income = 0;
+  $(`ul[data-category="income"] span[data-amount]`).each((i, j) => {
+    income += convertCurrencyFormatToFloat($(j).text());
+  });
+
+  // Update income on DOM
+  $("#totalIncome").text(currencyFormatter.format(income));
+  $("#totalIncome").addClass("green-text");
+
+  // Calculate expense
+  var expense = 0;
+  $(`ul[data-category="expense"] span[data-amount]`).each((i, j) => {
+    expense += convertCurrencyFormatToFloat($(j).text());
+  });
+
+  // Update expense on DOM
+  $("#totalExpense").text(currencyFormatter.format(expense));
+  $("#totalExpense").addClass("red-text");
+
+  // Calculate leftover
+  var leftover = income - Math.abs(expense);
+
+  // Update leftover on DOM
+  $("#leftover").text(currencyFormatter.format(leftover));
+  if (leftover < 0) {
+    $("#leftover").removeClass("green-text");
+    $("#leftover").addClass("red-text");
+  } else if (leftover > 0) {
+    $("#leftover").addClass("green-text");
+    $("#leftover").removeClass("red-text");
+  } else {
+    $("#leftover").removeClass(["green-text", "red-text"]);
+  }
+};
+
 // Utility Functions
 var convertCurrencyFormatToFloat = (currency) => {
   currency = currency.replace("$", "");
@@ -216,7 +254,16 @@ var validateInputs = (description, amount, category) => {
 /* 
   Testing
 */
-addEntry("Some desc", "1234", "income");
+// addEntry("Income 1", "4200", "income");
+// addEntry("Expense 1", "120", "expense");
+// addEntry("Expense 2", "450", "expense");
+// addEntry("Expense 3", "140", "expense");
+// addEntry("Expense 4", "200", "expense");
+
+addEntry("Income 1", "2", "income");
+addEntry("expense 1", "3", "expense");
+
+updateDashboard();
 // $(document).on("click", "#addExpenseBtn", (evt) => {
 //   console.log(evt.target);
 //   $("#entryType").text("Expense");
