@@ -34,13 +34,36 @@
             <div class="card">
               <div class="card-content">
                 <h2>Dashboard</h2>
-                <p>
-                  <i class="material-icons">attach_money</i>
-                  <i class="material-icons">call_received</i>
-                  <span id="totalIncome">$0.00</span>
-                </p>
-                <p>Total Expenses: <span id="totalExpense">$0.00</span></p>
-                <p>Leftover: <span id="leftover">$0.00</span></p>
+                <table class="centered">
+                  <thead>
+                    <tr>
+                      <th>
+                        <i class="material-icons">attach_money</i>
+                        <i class="material-icons">call_received</i>
+                      </th>
+                      <th>
+                        <i class="material-icons">attach_money</i>
+                        <i class="material-icons">call_made</i>
+                      </th>
+                      <th>
+                        <i class="material-icons">account_balance_wallet</i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span id="totalIncome">$0.00</span>
+                      </td>
+                      <td>
+                        <span id="totalExpense">$0.00</span>
+                      </td>
+                      <td>
+                        <span id="leftover">$0.00</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
