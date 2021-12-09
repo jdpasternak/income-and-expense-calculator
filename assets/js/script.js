@@ -55,6 +55,15 @@ var openAddEntryModalHandler = (evt) => {
 
 // Add Entry Function
 var addEntry = (description, amount, category) => {
+  var entryObj = {
+    id: entryCounter,
+    description: description,
+    amount: amount,
+    category: category,
+  };
+
+  entries.push(entryObj);
+  saveEntries();
   if (category === "expense") {
     amount = -Math.abs(amount);
   }
@@ -66,16 +75,6 @@ var addEntry = (description, amount, category) => {
         ${currencyFormatter.format(amount)}
     </td>`);
   $(`tbody[data-category="${category}"]`).append(newEntry);
-
-  var entryObj = {
-    id: entryCounter,
-    description: description,
-    amount: amount,
-    category: category,
-  };
-
-  entries.push(entryObj);
-  saveEntries();
 
   newEntry.on("click", modifyEntryHandler);
 
