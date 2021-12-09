@@ -16,6 +16,7 @@ var currencyFormatter = Intl.NumberFormat("en-US", {
 });
 
 var entryCounter = 0;
+var entries = [];
 
 $(document).ready(() => {
   $(".modal").modal({
@@ -54,6 +55,16 @@ var openAddEntryModalHandler = (evt) => {
 
 // Add Entry Function
 var addEntry = (description, amount, category) => {
+  var entryObj = {
+    id: entryCounter,
+    description: description,
+    amount: amount,
+    category: category,
+  };
+
+  entries.push(entryObj);
+  saveEntries();
+
   if (category === "expense") {
     amount = -Math.abs(amount);
   }
@@ -145,6 +156,14 @@ var saveModifiedEntryHandler = (evt) => {
 };
 
 var saveModifiedEntry = (description, amount, category, id) => {
+  for (var i = 0; i < entries.length; i++) {
+    if (entries[i].id == id) {
+      entries[i].description = description;
+      entries[i].amount = amount;
+    }
+  }
+  saveEntries();
+
   if (category === "expense") {
     amount = -Math.abs(amount);
   }
@@ -180,6 +199,15 @@ var deleteEntryHandler = (evt) => {
 
 var deleteEntry = (id) => {
   $(`tr[data-entryid="${id}"]`).remove();
+
+  var newEntries = [];
+  for (var i = 0; i < entries.length; i++) {
+    if (!entries[i].id == id) {
+      newEntries.push(entries[i]);
+    }
+  }
+  entries = newEntries;
+  saveEntries();
 };
 
 var updateDashboard = () => {
@@ -220,6 +248,19 @@ var updateDashboard = () => {
     $("#leftover").removeClass("red-text");
   } else {
     $("#leftover").removeClass(["green-text", "red-text"]);
+  }
+};
+
+var saveEntries = () => {
+  localStorage.setItem("entries", JSON.stringify(entries));
+};
+
+var loadEntries = () => {
+  var savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+  if (savedEntries.length > 0) {
+    savedEntries.forEach((e) => {
+      addEntry(e.description, e.amount, e.category);
+    });
   }
 };
 
@@ -271,9 +312,10 @@ var validateInputs = (description, amount, category) => {
 // addEntry("Expense 3", "140", "expense");
 // addEntry("Expense 4", "200", "expense");
 
-addEntry("Income 1", "2", "income");
-addEntry("expense 1", "3", "expense");
+// addEntry("Income 1", "2", "income");
+// addEntry("expense 1", "3", "expense");
 
+loadEntries();
 updateDashboard();
 // $(document).on("click", "#addExpenseBtn", (evt) => {
 //   console.log(evt.target);
